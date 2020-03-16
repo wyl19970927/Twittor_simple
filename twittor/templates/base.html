@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    {% if title %}
+    <title>welcome to {{ title }}</title>
+    {% else %}
+    <title>welcome to Twittor</title>
+    {% endif %}
+</head>
+<body style="background-color: #f3f8ff;" >
+ <div class="sticky-top d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+  <a class="my-0 mr-md-auto font-weight-normal" href="{{ url_for('index') }}">Twittor</a>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <a class="p-2 text-dark"  href = "{{ url_for('explore') }}">Explore</a>
+
+  </nav>
+     {% if current_user.is_anonymous %}
+         <a class="btn btn-outline-primary" href ="{{ url_for('login') }}">Login</a>
+     {% else %}
+          <a class="btn btn-outline-primary" href ="{{ url_for('logout') }}">Logout</a>
+     {% endif %}
+</div>
+
+
+
+{% with messages = get_flashed_messages() %}
+{% if messages  %}
+<ul>
+    {% for message in messages  %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+{% block content %}{% endblock %}
+</body>
+</html>
